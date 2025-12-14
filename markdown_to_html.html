@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown to HTML - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Markdown to HTML</h1>
+                <p class="tool-desc">Convert Markdown syntax to HTML code.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Markdown</label>
+                    <textarea id="input" rows="8" placeholder="# Heading&#10;**Bold text** and *italic*"
+                        autofocus></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="convert()">Convert to HTML</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('input').value = ''">Clear</button>
+                </div>
+            </div>
+
+            <div class="result-box" id="result-container" style="display:none;">
+                <button class="copy-btn" onclick="copyToClipboard('output')">Copy</button>
+                <pre id="output"></pre>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function convert() {
+            let text = document.getElementById('input').value;
+            if (!text.trim()) return;
+
+            // Simple Regex Parser
+            // Headers
+            text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+
+            // Bold
+            text = text.replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>');
+
+            // Italic
+            text = text.replace(/\*(.*)\*/gim, '<em>$1</em>');
+
+            // Links
+            text = text.replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2">$1</a>');
+
+            // Lists (Simple)
+            text = text.replace(/^\- (.*$)/gim, '<li>$1</li>');
+
+            // Paragraphs (Double newline)
+            text = text.replace(/\n\s*\n/g, '<br><br>');
+
+            document.getElementById('output').textContent = text;
+            document.getElementById('result-container').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

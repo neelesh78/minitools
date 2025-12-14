@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Formatter - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Text Formatter</h1>
+                <p class="tool-desc">Clean up your text by removing extra spaces and fixing punctuation.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text</label>
+                    <textarea id="input" rows="8" placeholder="Type or paste your text here..." autofocus></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="formatText()">Format Text</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('input').value = ''">Clear</button>
+                </div>
+            </div>
+
+            <div class="result-box" id="result-container" style="display:none;">
+                <button class="copy-btn" onclick="copyToClipboard('output')">Copy</button>
+                <pre id="output"></pre>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function formatText() {
+            let text = document.getElementById('input').value;
+            if (!text) return;
+
+            // Remove multiple spaces, tabs, etc, but keep newlines
+            // Replace 2+ spaces with 1 space
+            text = text.replace(/[ \t]+/g, ' ');
+
+            // Fix space before punctuation ( e.g. "word ." -> "word.")
+            text = text.replace(/\s+([.,!?;:])/g, '$1');
+
+            // Ensure space after punctuation (e.g. "word.Word" -> "word. Word")
+            // Avoid numbers like 1.5 or domains like .com (basic check)
+            text = text.replace(/([.,!?;:])(?=[a-zA-Z])/g, '$1 ');
+
+            // Trim each line
+            text = text.split('\n').map(line => line.trim()).join('\n');
+
+            // Remove multiple newlines (optional, maybe max 2)
+            text = text.replace(/\n{3,}/g, '\n\n');
+
+            document.getElementById('output').textContent = text.trim();
+            document.getElementById('result-container').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

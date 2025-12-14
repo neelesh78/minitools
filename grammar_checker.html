@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Checker - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Grammar Checker</h1>
+                <p class="tool-desc">Check for common grammar mistakes and double words.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text</label>
+                    <textarea id="input" rows="8" placeholder="Paste your text here..." autofocus spellcheck="true"
+                        lang="en"></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="check()">Scan for Issues</button>
+                </div>
+            </div>
+
+            <div id="issues-list" style="margin-top: 2rem; display: none;">
+                <h3 style="margin-bottom: 1rem;">Start of Scan Results</h3>
+                <ul id="issues-ul" style="list-style: none; color: var(--text-muted);"></ul>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function check() {
+            const text = document.getElementById('input').value;
+            const issuesUl = document.getElementById('issues-ul');
+            issuesUl.innerHTML = '';
+
+            const issues = [];
+
+            // Check for repeated words
+            const repeated = text.match(/\b(\w+)\s+\1\b/gi);
+            if (repeated) {
+                issues.push(`Repeated words found: ${repeated.join(', ')}`);
+            }
+
+            // Check for spacing before punctuation
+            if (/\s+[.,!?;:]/.test(text)) {
+                issues.push("Found spaces before punctuation marks.");
+            }
+
+            // Check for lowercase sentence starts
+            const lowerStart = text.match(/[.?!]\s+[a-z]/);
+            if (lowerStart) {
+                issues.push("Found literal lowercase letters at the start of sentences.");
+            }
+
+            document.getElementById('issues-list').style.display = 'block';
+
+            if (issues.length === 0) {
+                issuesUl.innerHTML = '<li style="color: #10b981;">No basic grammar issues found caused by spacing or repetition. Rely on the browser underline for spelling.</li>';
+            } else {
+                issues.forEach(issue => {
+                    const li = document.createElement('li');
+                    li.textContent = "• " + issue;
+                    li.style.marginBottom = "0.5rem";
+                    issuesUl.appendChild(li);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

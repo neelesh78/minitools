@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Rewriter - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Text Rewriter</h1>
+                <p class="tool-desc">Rewrite text to match a certain style.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text</label>
+                    <textarea id="input" rows="8" placeholder="Paste text to rewrite..." autofocus></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Style</label>
+                    <select id="style-select"
+                        style="width: 100%; padding: 1rem; background: #0f172a; border: 1px solid var(--glass-border); color: white; border-radius: 8px;">
+                        <option value="formal">Formal (Simple)</option>
+                        <option value="reverse">Reverse Words (Fun)</option>
+                    </select>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="rewrite()">Rewrite Text</button>
+                </div>
+            </div>
+
+            <div class="result-box" id="result-container" style="display:none;">
+                <button class="copy-btn" onclick="copyToClipboard('output')">Copy</button>
+                <pre id="output"></pre>
+            </div>
+
+            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.8rem; text-align: center;">
+                Note: This is a client-side demo tool. True AI rewriting requires a backend service.
+            </p>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function rewrite() {
+            const text = document.getElementById('input').value;
+            const style = document.getElementById('style-select').value;
+
+            if (!text) return;
+
+            let output = "";
+
+            if (style === 'reverse') {
+                output = text.split(' ').reverse().join(' ');
+            } else {
+                // Mock Formal: replace some common casual words
+                output = text.replace(/\bgonna\b/gi, "going to")
+                    .replace(/\bwanna\b/gi, "want to")
+                    .replace(/\bcan't\b/gi, "cannot")
+                    .replace(/\bdon't\b/gi, "do not")
+                    .replace(/\bhi\b/gi, "Greetings")
+                    .replace(/\bhey\b/gi, "Hello");
+            }
+
+            document.getElementById('output').textContent = output;
+            document.getElementById('result-container').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

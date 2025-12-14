@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Extra Spaces - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Remove Extra Spaces</h1>
+                <p class="tool-desc">Clean text by replacing multiple spaces with a single space.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text</label>
+                    <textarea id="input" rows="8" placeholder="Type or paste your text here..." autofocus></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="process()">Remove Spaces</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('input').value = ''">Clear</button>
+                </div>
+            </div>
+
+            <div class="result-box" id="result-container" style="display:none;">
+                <button class="copy-btn" onclick="copyToClipboard('output')">Copy</button>
+                <pre id="output"></pre>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function process() {
+            let text = document.getElementById('input').value;
+            if (!text) return;
+
+            // Replace 2+ whitespace characters with single space
+            // Keep newlines if they are meaningful? Usually "Remove Extra Spaces" collapses everything.
+            // But let's assume valid paragraph structure conservation is preferred:
+            // 1. Split by newlines
+            // 2. Process each line: replace sequence of spaces/tabs with single space, trim
+            // 3. Join back
+
+            const lines = text.split('\n');
+            const processedLines = lines.map(line => {
+                return line.replace(/[ \t]+/g, ' ').trim();
+            });
+
+            document.getElementById('output').textContent = processedLines.join('\n');
+            document.getElementById('result-container').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Decoder - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">URL Decoder</h1>
+                <p class="tool-desc">Convert URL-encoded text back to normal string.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input URL Encoded Text</label>
+                    <textarea id="input" rows="8" placeholder="Paste encoded text (e.g. Hello%20World)..."
+                        autofocus></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="convert()">Decode URL</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('input').value = ''">Clear</button>
+                </div>
+            </div>
+
+            <div class="result-box" id="result-container" style="display:none;">
+                <button class="copy-btn" onclick="copyToClipboard('output')">Copy</button>
+                <pre id="output"></pre>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function convert() {
+            const input = document.getElementById('input').value;
+            if (!input) return;
+
+            try {
+                const output = decodeURIComponent(input);
+                document.getElementById('output').textContent = output;
+                document.getElementById('result-container').style.display = 'block';
+            } catch (e) {
+                alert("Invalid URL encoded string.");
+            }
+        }
+    </script>
+</body>
+
+</html>

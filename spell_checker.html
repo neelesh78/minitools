@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spell Checker - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Spell Checker</h1>
+                <p class="tool-desc">Use your browser's advanced spell checking engine.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text (Red underlines indicate errors)</label>
+                    <textarea id="input" rows="12"
+                        placeholder="Type here. Misspelled words will be underlined by your browser..." autofocus
+                        spellcheck="true" lang="en"></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('input').value = ''">Clear</button>
+                </div>
+
+                <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                    💡 Tip: Right-click on underlined words to see suggestions.
+                </p>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

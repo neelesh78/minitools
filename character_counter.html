@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Character Counter</h1>
+                <p class="tool-desc">Count characters with and without spaces in real-time.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text</label>
+                    <textarea id="input" rows="8" placeholder="Start typing to count characters..." autofocus
+                        oninput="count()"></textarea>
+                </div>
+
+                <div class="stats-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                    <div class="stat-card"
+                        style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                        <span style="display: block; font-size: 2rem; font-weight: 700; color: var(--accent);"
+                            id="char-count">0</span>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Total Characters</span>
+                    </div>
+                    <div class="stat-card"
+                        style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                        <span style="display: block; font-size: 2rem; font-weight: 700; color: #10b981;"
+                            id="char-no-space-count">0</span>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Without Spaces</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-secondary" onclick="clearText()">Clear Text</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function count() {
+            const text = document.getElementById('input').value;
+
+            document.getElementById('char-count').textContent = text.length;
+            document.getElementById('char-no-space-count').textContent = text.replace(/\s/g, '').length;
+        }
+
+        function clearText() {
+            document.getElementById('input').value = '';
+            count();
+        }
+    </script>
+</body>
+
+</html>

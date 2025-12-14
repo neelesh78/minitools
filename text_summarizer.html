@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Text Summarizer</h1>
+                <p class="tool-desc">Summarize long text into key points (Extractive Summary).</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text</label>
+                    <textarea id="input" rows="8" placeholder="Paste your long text here..." autofocus></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="summarize()">Summarize</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('input').value = ''">Clear</button>
+                </div>
+            </div>
+
+            <div class="result-box" id="result-container" style="display:none;">
+                <button class="copy-btn" onclick="copyToClipboard('output')">Copy</button>
+                <pre id="output"></pre>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function summarize() {
+            const text = document.getElementById('input').value;
+            if (!text.trim()) return;
+
+            // Very Simple Frequency Based Summarization
+            const sentences = text.match(/[^.?!]+[.?!]+[\])'"]?/g) || [text];
+
+            if (sentences.length < 3) {
+                document.getElementById('output').textContent = text;
+                document.getElementById('result-container').style.display = 'block';
+                return;
+            }
+
+            const wordFreq = {};
+            text.toLowerCase().match(/\w+/g).forEach(w => {
+                if (w.length > 3) wordFreq[w] = (wordFreq[w] || 0) + 1;
+            });
+
+            const scores = sentences.map((s, i) => {
+                let score = 0;
+                s.toLowerCase().match(/\w+/g)?.forEach(w => {
+                    score += wordFreq[w] || 0;
+                });
+                return { index: i, score: score / (s.length * 0.5) }; // Normalize slightly by length
+            });
+
+            // Get top 33% sentences
+            scores.sort((a, b) => b.score - a.score);
+            const topSentences = scores.slice(0, Math.max(1, Math.ceil(sentences.length / 3)))
+                .sort((a, b) => a.index - b.index)
+                .map(item => sentences[item.index]);
+
+            document.getElementById('output').textContent = topSentences.join(' ');
+            document.getElementById('result-container').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

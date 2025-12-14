@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readability Checker - Text Mini Tools</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1 class="tool-title">Readability Checker</h1>
+                <p class="tool-desc">Analyze how easy your text is to read using Flesch-Kincaid.</p>
+            </div>
+
+            <div class="box-card">
+                <div class="input-group">
+                    <label for="input">Input Text</label>
+                    <textarea id="input" rows="8" placeholder="Paste your text here to analyze readability..."
+                        autofocus></textarea>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="analyze()">Analyze Readability</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('input').value = ''">Clear</button>
+                </div>
+            </div>
+
+            <div class="stats-grid" id="result-container"
+                style="display: none; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                <div class="stat-card"
+                    style="background: var(--bg-card); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: var(--radius-md); text-align: center;">
+                    <span style="display: block; font-size: 2.5rem; font-weight: 800; color: var(--accent);"
+                        id="score">0</span>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Flesch Reading Ease</span>
+                </div>
+                <div class="stat-card"
+                    style="background: var(--bg-card); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: var(--radius-md); text-align: center;">
+                    <span
+                        style="display: block; font-size: 1.2rem; font-weight: 600; color: #10b981; margin-bottom: 0.5rem;"
+                        id="grade">Grade 0</span>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Estimated Grade Level</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        function analyze() {
+            const text = document.getElementById('input').value;
+            if (!text.trim()) return;
+
+            const sentences = text.split(/[.?!]+/).filter(s => s.trim().length > 0).length || 1;
+            const words = text.trim().split(/\s+/).filter(Boolean).length || 1;
+
+            // Simple syllable counter
+            const syllables = countSyllables(text);
+
+            // Flesch Reading Ease
+            // 206.835 - 1.015(total words / total sentences) - 84.6(total syllables / total words)
+            const score = 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words);
+
+            // Flesch-Kincaid Grade Level
+            // 0.39(total words / total sentences) + 11.8(total syllables / total words) - 15.59
+            const grade = 0.39 * (words / sentences) + 11.8 * (syllables / words) - 15.59;
+
+            document.getElementById('score').textContent = Math.round(score);
+            document.getElementById('grade').textContent = `Grade ${Math.max(0, Math.round(grade))}`;
+            document.getElementById('result-container').style.display = 'grid';
+        }
+
+        function countSyllables(text) {
+            // Very basic heuristic
+            return text.toLowerCase()
+                .replace(/[^a-z]/g, '')
+                .replace(/e$/g, '') // Silent e
+                .replace(/[aeiouy]{1,2}/g, 'X') // Vowel groups
+                .match(/X/g)?.length || text.length / 3; // Fallback
+        }
+    </script>
+</body>
+
+</html>
