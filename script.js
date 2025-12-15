@@ -10,26 +10,43 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if we are on the home page
     const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname.split('/').pop() === '';
 
-    let footerContent = `
+    // Define footer content with columns
+    footer.innerHTML = `
         <div class="container">
-            <p>&copy; ${currentYear} Text Mini Tools. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-col brand-col">
+                    <div class="logo">Text Mini Tools</div>
+                    <p class="footer-desc">
+                        Fast, secure, and free text utilities running entirely in your browser. 
+                        No data is ever sent to a server.
+                    </p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#all-tools">All Tools</a></li>
+                        <li><a href="#" onclick="alert('About page coming soon!')">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="alert('Privacy Policy: No data is collected. Everything runs locally.')">Privacy Policy</a></li>
+                        <li><a href="#" onclick="alert('Terms of Service coming soon!')">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; ${currentYear} Text Mini Tools. Built with Vanilla JS.</p>
+                ${!isHomePage ? '<p><a href="index.html" class="back-link">← Back to Home</a></p>' : ''}
+            </div>
+        </div>
     `;
 
-    // Add Home link if not on home page
-    if (!isHomePage) {
-        footerContent += `
-            <p style="margin-top: 0.5rem;">
-                <a href="index.html" style="color: var(--accent);">Back to Home</a>
-            </p>
-        `;
-    }
-
-    footerContent += `</div>`;
-    footer.innerHTML = footerContent;
-
-    // Insert footer
-    // Try to find the placeholder comment, or just append to body
-    // Since comments are nodes, we can try to replace it, but appending to body is safer and consistent with flex layout.
     document.body.appendChild(footer);
 });
 
