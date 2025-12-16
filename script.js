@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; ${currentYear} Text Mini Tools. Built with Vanilla JS.</p>
+                <p>&copy; ${currentYear} Text Mini Tools. All rights reserved.</p>
                 ${!isHomePage ? '<p><a href="index.html" class="back-link">← Back to Home</a></p>' : ''}
             </div>
         </div>
@@ -87,3 +87,38 @@ window.copyToClipboard = async function (elementId) {
         alert('Failed to copy to clipboard. Please select and copy manually.');
     }
 };
+
+// Search Functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('tool-search');
+
+    if (searchInput) {
+        const toolCards = document.querySelectorAll('.tool-card');
+        const sections = document.querySelectorAll('section');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            toolCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Hide empty sections
+            sections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.tool-card:not([style*="display: none"])');
+                if (visibleCards.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = '';
+                }
+            });
+        });
+    }
+});
