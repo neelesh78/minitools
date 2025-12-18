@@ -23,19 +23,14 @@
                         oninput="count()"></textarea>
                 </div>
 
-                <div class="stats-grid"
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
-                    <div class="stat-card"
-                        style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
-                        <span style="display: block; font-size: 2rem; font-weight: 700; color: var(--accent);"
-                            id="char-count">0</span>
-                        <span style="color: var(--text-muted); font-size: 0.9rem;">Total Characters</span>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value accent-text" id="char-count">0</span>
+                        <span class="stat-label">Total Characters</span>
                     </div>
-                    <div class="stat-card"
-                        style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
-                        <span style="display: block; font-size: 2rem; font-weight: 700; color: #10b981;"
-                            id="char-no-space-count">0</span>
-                        <span style="color: var(--text-muted); font-size: 0.9rem;">Without Spaces</span>
+                    <div class="stat-card">
+                        <span class="stat-value success-text" id="char-no-space-count">0</span>
+                        <span class="stat-label">Without Spaces</span>
                     </div>
                 </div>
 

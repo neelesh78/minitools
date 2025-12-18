@@ -11,27 +11,23 @@
 <body>
     <!-- Header injected by script.js -->
 
-    <main class="container" style="padding-bottom: 70px;">
-        <div style="text-align: center; margin-bottom: 4rem; padding: 2rem 0;">
-            <h1
-                style="font-size: 3rem; margin-bottom: 1rem; letter-spacing: -1px; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+    <main class="container">
+        <div class="hero-section">
+            <h1 class="hero-title">
                 Your Essential Text Toolkit
             </h1>
-            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+            <p class="hero-subtitle">
                 Fast, private, and simple tools for editing, formatting, and converting text.
                 Everything runs in your browser.
             </p>
         </div>
 
-        <div class="search-container"
-            style="margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; position: relative;">
-            <input type="text" id="tool-search" placeholder="Search tools..."
-                style="width: 100%; padding: 1rem 1.5rem; border-radius: 50px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text); font-size: 1.1rem; outline: none; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s ease;">
+        <div class="search-container">
+            <input type="text" id="tool-search" placeholder="Search tools..." class="search-input">
         </div>
 
         <section>
-            <h2
-                style="font-size: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">
+            <h2 class="section-title">
                 Basic Text Tools</h2>
             <div class="tools-grid">
                 <a href="text_formatter.html" class="tool-card">
@@ -73,9 +69,8 @@
             </div>
         </section>
 
-        <section style="margin-top: 4rem;">
-            <h2
-                style="font-size: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">
+        <section class="section-spacer">
+            <h2 class="section-title">
                 Editing & Counting</h2>
             <div class="tools-grid">
                 <a href="word_counter.html" class="tool-card">
@@ -117,9 +112,8 @@
             </div>
         </section>
 
-        <section style="margin-top: 4rem;">
-            <h2
-                style="font-size: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">
+        <section class="section-spacer">
+            <h2 class="section-title">
                 Encoding & Security</h2>
             <div class="tools-grid">
                 <a href="text_encoder.html" class="tool-card">
@@ -157,9 +151,8 @@
             </div>
         </section>
 
-        <section style="margin-top: 4rem;">
-            <h2
-                style="font-size: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;">
+        <section class="section-spacer">
+            <h2 class="section-title">
                 Converters</h2>
             <div class="tools-grid">
                 <a href="text_to_json.html" class="tool-card">

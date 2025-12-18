@@ -28,9 +28,9 @@
                 </div>
             </div>
 
-            <div id="issues-list" style="margin-top: 2rem; display: none;">
-                <h3 style="margin-bottom: 1rem;">Start of Scan Results</h3>
-                <ul id="issues-ul" style="list-style: none; color: var(--text-muted);"></ul>
+            <div id="issues-list" class="result-list-container hidden">
+                <h3 class="result-list-title">Start of Scan Results</h3>
+                <ul id="issues-ul" class="result-list"></ul>
             </div>
         </div>
     </main>
@@ -60,15 +60,14 @@
                 issues.push("Found literal lowercase letters at the start of sentences.");
             }
 
-            document.getElementById('issues-list').style.display = 'block';
+            document.getElementById('issues-list').classList.remove('hidden');
 
             if (issues.length === 0) {
-                issuesUl.innerHTML = '<li style="color: #10b981;">No basic grammar issues found caused by spacing or repetition. Rely on the browser underline for spelling.</li>';
+                issuesUl.innerHTML = '<li class="success-text">No basic grammar issues found caused by spacing or repetition. Rely on the browser underline for spelling.</li>';
             } else {
                 issues.forEach(issue => {
                     const li = document.createElement('li');
                     li.textContent = "• " + issue;
-                    li.style.marginBottom = "0.5rem";
                     issuesUl.appendChild(li);
                 });
             }

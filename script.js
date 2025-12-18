@@ -73,13 +73,11 @@ window.copyToClipboard = async function (elementId) {
         if (btn) {
             const originalText = btn.textContent;
             btn.textContent = 'Copied!';
-            btn.style.backgroundColor = 'var(--accent)';
-            btn.style.color = 'white';
+            btn.classList.add('btn-success');
 
             setTimeout(() => {
                 btn.textContent = originalText;
-                btn.style.backgroundColor = '';
-                btn.style.color = '';
+                btn.classList.remove('btn-success');
             }, 2000);
         }
     } catch (err) {
@@ -104,19 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const description = card.querySelector('p').textContent.toLowerCase();
 
                 if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = '';
+                    card.classList.remove('hidden');
                 } else {
-                    card.style.display = 'none';
+                    card.classList.add('hidden');
                 }
             });
 
             // Hide empty sections
             sections.forEach(section => {
-                const visibleCards = section.querySelectorAll('.tool-card:not([style*="display: none"])');
+                const visibleCards = section.querySelectorAll('.tool-card:not(.hidden)');
                 if (visibleCards.length === 0) {
-                    section.style.display = 'none';
+                    section.classList.add('hidden');
                 } else {
-                    section.style.display = '';
+                    section.classList.remove('hidden');
                 }
             });
         });

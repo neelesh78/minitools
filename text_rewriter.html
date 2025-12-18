@@ -24,8 +24,7 @@
 
                 <div class="input-group">
                     <label>Style</label>
-                    <select id="style-select"
-                        style="width: 100%; padding: 1rem; background: #0f172a; border: 1px solid var(--glass-border); color: white; border-radius: 8px;">
+                    <select id="style-select" class="select-input">
                         <option value="formal">Formal (Simple)</option>
                         <option value="reverse">Reverse Words (Fun)</option>
                     </select>
@@ -36,12 +35,12 @@
                 </div>
             </div>
 
-            <div class="result-box" id="result-container" style="display:none;">
+            <div class="result-box hidden" id="result-container">
                 <button class="copy-btn" onclick="copyToClipboard('output')">Copy</button>
                 <pre id="output"></pre>
             </div>
 
-            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.8rem; text-align: center;">
+            <p class="note-text">
                 Note: This is a client-side demo tool. True AI rewriting requires a backend service.
             </p>
         </div>
@@ -69,7 +68,7 @@
             }
 
             document.getElementById('output').textContent = output;
-            document.getElementById('result-container').style.display = 'block';
+            document.getElementById('result-container').classList.remove('hidden');
         }
     </script>
 </body>
